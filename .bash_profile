@@ -16,6 +16,8 @@ alias knt='k describe nodes | grep -i taint  -A3'
 alias e='ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key '
 alias es='e snapshot save '
 alias er='e --data-dir /var/lib/etcdfb snapshot restore '
+alias ek='e get / --prefix --keys-only '
+alias eh='e endpoint health'
 
 # individaully check certificate details
 function icd () {
