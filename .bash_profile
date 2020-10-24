@@ -40,3 +40,7 @@ function kss () {
 openssl req -new -key "${1}"  -subj ""${2}"" -out "${3}"
 }
 
+ alias checkcerts='kubeadm alpha certs check-expiration'
+ alias admconf='kubeadm config view > kubeadm.conf'
+ alias renewcerts='kubeadm alpha certs renew all --config kubeadm.conf'
+
