@@ -31,3 +31,12 @@ function ic () {
 alias cx='ls *.crt | grep "\.crt$" | xargs -I{} openssl x509 -issuer -enddate -noout -in {}'
 alias cc='ls *.crt | grep "\.crt$" | xargs -I{} openssl x509 -text -noout -in {} |  grep -E "Issuer|Not|Key Usage|Subject Alternative" -A1'
 
+#certificate signing process - testing
+alias ak='openssl genrsa -out '
+function bk () {
+openssl rsa -in "${1}" -pubout  -out "${2}"
+}
+function kss () {
+openssl req -new -key "${1}"  -subj ""${2}"" -out "${3}"
+}
+
