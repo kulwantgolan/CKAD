@@ -10,3 +10,4 @@ source <(kubectl completion bash)
 complete -F __start_kubectl k
 complete -F __start_kubectl kdo
 complete -F __start_kubectl kdor
+alias knt='k describe nodes | grep -i taint  -A3'
