@@ -24,7 +24,7 @@ function icd () {
     openssl x509 -text -noout -in "${1}" 
 }
 function ic () {
-    openssl x509 -text -noout -in "${1}" |  grep -E "Issuer|Not|Key Usage|Subject Alternative" -A1
+    openssl x509 -text -noout -in "${1}" |  grep -E "Issuer|Not|Key Usage|Basic Constraints|Subject Alternative" -A1
 }
 
 # check expired certs in current folder
@@ -40,8 +40,20 @@ alias ak='openssl genrsa -out '
 function bk () {
 openssl rsa -in "${1}" -pubout  -out "${2}"
 }
-function kso () {
+function getcsr () {
 openssl req -new -key "${1}"  -subj \"${2}\" -out "${3}"
+}
+
+function getcrt () {
+openssl x509 -req -in "${1}" -CA ca.key -CAkey ca.key -out "${2}"
+}
+
+function getcacrt () {
+openssl x509 -req -in "${1}" -signkey ca.key -CAcreateserial -days 1000 -out "${2}" 
+}
+
+function showsubj () {
+admin user: "/CN=kubernetes-admin/O=system:masters"
 }
 
 function certinfo () {
