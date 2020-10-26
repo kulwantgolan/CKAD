@@ -2,13 +2,20 @@ export ns=default
 alias k='kubectl -n $ns'
 alias kdo='k --dry-run=client -o yaml'
 alias kdor='kdo --restart=Never'
-alias kt='k run --rm -it busybox --image=busybox --restart=Never'
-alias ktw='k run --rm -it busybox --image=busybox --restart=Never -- wget -O- --timeout 2'
-alias knt='k describe nodes | grep -i taint  -A3'
+alias kgpo='k get pod -o yaml '
+alias kdpo='k get deployment -o yaml '
+
+
 source <(kubectl completion bash)
 complete -F __start_kubectl k
 complete -F __start_kubectl kdo
 complete -F __start_kubectl kdor
+complete -F __start_kubectl kgpo
+complete -F __start_kubectl kdpo
+
+alias kt='k run --rm -it busybox --image=busybox --restart=Never'
+alias ktw='k run --rm -it busybox --image=busybox --restart=Never -- wget -O- --timeout 2'
+alias knt='k describe nodes | grep -i taint  -A3'
 
 alias kaf='kubectl apply -f '
 alias kdf='kubectl delete -f '
