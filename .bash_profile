@@ -19,6 +19,7 @@ alias knt='k describe nodes | grep -i taint  -A3'
 
 alias kaf='kubectl apply -f '
 alias kdf='kubectl delete -f '
+alias kdfq='kubectl delete --force --grace-period 0 -f '
 alias kga='kubectl api-resources --verbs=list  -o name | xargs -n 1 kubectl get --show-kind  2>/dev/null'
 
 #etcd backup and restore
