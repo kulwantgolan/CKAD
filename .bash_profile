@@ -5,6 +5,9 @@ alias kdor='kdo --restart=Never'
 alias kgpo='k get pod -o yaml '
 alias kdpo='k get deployment -o yaml '
 
+alias ju='journalctl -u '
+alias kubeletsvc='ls /etc/systemd/system/kubelet.service.d'
+
 
 source <(kubectl completion bash)
 complete -F __start_kubectl k
@@ -23,8 +26,8 @@ alias kdfq='kubectl delete --force --grace-period 0 -f '
 alias kga='kubectl api-resources --verbs=list  -o name | xargs -n 1 kubectl get --show-kind  2>/dev/null'
 alias jointoken='kubeadm token create --print-join-command'
 
-installweave="kubectl apply -f 'https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d \'\n\')'"
-installflannel='kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml'
+alias installweave="kubectl apply -f 'https://cloud.weave.works/k8s/net?k8s-version=`kubectl version | base64 | tr -d '\n'`'"
+alias installflannel='kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml'
 
 #etcd backup and restore
 alias e='ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key '
@@ -39,6 +42,18 @@ function icd () {
 }
 function ic () {
     openssl x509 -text -noout -in "${1}" |  grep -E "Issuer|Not|Key Usage|Basic Constraints|Subject Alternative" -A1
+}
+
+# podcidr
+function podcidr () {
+cat << EOF
+kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
+kubectl cluster-info dump | grep -m 1 cluster-cidr   #using kube-proxy
+grep cidr /etc/kubernetes/manifests/kube-*
+kubeadm config view | grep Subnet
+ps -ef | grep cluster-cidr
+CALICO_KUBECONFIG=~/.kube/config DATASTORE_TYPE=kubernetes calicoctl get ippool -o wide
+EOF
 }
 
 # check expired certs in current folder
