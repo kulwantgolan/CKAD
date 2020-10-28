@@ -23,6 +23,9 @@ alias kdfq='kubectl delete --force --grace-period 0 -f '
 alias kga='kubectl api-resources --verbs=list  -o name | xargs -n 1 kubectl get --show-kind  2>/dev/null'
 alias jointoken='kubeadm token create --print-join-command'
 
+installweave="kubectl apply -f 'https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d \'\n\')'"
+installflannel='kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml'
+
 #etcd backup and restore
 alias e='ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key '
 alias es='e snapshot save '
@@ -61,10 +64,6 @@ openssl x509 -req -in "${1}" -CA ca.key -CAkey ca.key -out "${2}"
 
 function getcacrt () {
 openssl x509 -req -in "${1}" -signkey ca.key -CAcreateserial -days 1000 -out "${2}" 
-}
-
-function showsubj () {
-admin user: "/CN=kubernetes-admin/O=system:masters"
 }
 
 function certinfo () {
@@ -107,32 +106,7 @@ openssl genrsa -out admin.key 2048
 openssl req -new -key admin.key -out admin.csr -subj "/CN=kube-admin/O=system:masters"
 openssl x509 -req -in admin.csr -CA ca.key -CAkey ca.key -out admin.crt
 
-system:kube-scheduler
-system:kube-controller-manager
-system:kube-proxy
-
-#Api Server 
-/etc/ssl/openssl.cnf
-[req]  
-req_extensions = v3_req  
-[v3_req]  
-#Basic Constraints
-#basicConstraints        = critical, CA:TRUE
-basicConstrants = CA:FALSE  
-keyUsage = nonRepudiation,digitalSignature, keyEncipherment  
-#Extended Key Usage:
-extendedKeyUsage        = serverAuth
-#extendedKeyUsage        = clientAuth
-subjectAltName = @alt_names  
-[alt_names]  
-DNS.1 = kubernetes  
-DNS.2 = kubernetes.default  
-DNS.3 = kubernetes.default.svc  
-DNS.4 = kubernetes.default.svc.cluster.local  
-IP.1 = 10.96.0.1  
-IP.2 = 172.17.0.87
-
-
+#Api Server
 openssl genrsa -out apiserver.key 2048
 openssl req -new -key apiserver.key -out apiserver.csr -subj "/CN=kube-apiserver"
 openssl x509 -req -in apiserver.csr -CA ca.key -CAkey ca.key -out apiserver.crt
