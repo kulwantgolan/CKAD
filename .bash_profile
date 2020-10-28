@@ -28,6 +28,7 @@ alias jointoken='kubeadm token create --print-join-command'
 
 alias installweave="kubectl apply -f 'https://cloud.weave.works/k8s/net?k8s-version=`kubectl version | base64 | tr -d '\n'`'"
 alias installflannel='kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml'
+alias installms='kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.7/components.yaml'
 
 #etcd backup and restore
 alias e='ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key '
