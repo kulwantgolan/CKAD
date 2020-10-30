@@ -5,6 +5,14 @@ alias kdor='kdo --restart=Never'
 alias kgpo='k get pod -o yaml '
 alias kdpo='k get deployment -o yaml '
 
+alias kgo='k -o yaml get' 
+function kgi () {
+k get all -o wide 
+k get ep
+k get po --show-labels
+}
+
+
 alias ju='journalctl -u '
 alias kubeletsvc='ls /etc/systemd/system/kubelet.service.d'
 
