@@ -7,6 +7,11 @@ alias kgop='k get pod -o yaml '
 alias kgod='k get deployment -o yaml '
 alias kgos='k get service -o yaml '
 
+alias kgp='k get pods -o wide --show-labels'
+alias kgd='k get deployments -o wide'
+alias kgs='k get services -o wide'
+alias kge='k get endpoints'
+
 alias cdm='cd /etc/kubernetes/manifests'
 alias cdk='cd /var/lib/kubelet/pki '
 alias ds='docker ps -a | grep '
