@@ -53,6 +53,13 @@ alias installweave="kubectl apply -f 'https://cloud.weave.works/k8s/net?k8s-vers
 alias installflannel='kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml'
 alias installms='kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.7/components.yaml'
 
+function installcalico () {
+echo kubeadm init --pod-network-cidr=192.168.0.0/16
+echo kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
+echo kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml
+}
+
+
 #etcd backup and restore
 alias e='ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key '
 alias es='e snapshot save '
