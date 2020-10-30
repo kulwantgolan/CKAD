@@ -2,11 +2,17 @@ export ns=default
 alias k='kubectl -n $ns'
 alias kdo='k --dry-run=client -o yaml'
 alias kdor='kdo --restart=Never'
+alias kgo='k -o yaml get' 
 alias kgop='k get pod -o yaml '
 alias kgod='k get deployment -o yaml '
 alias kgos='k get service -o yaml '
 
-alias kgo='k -o yaml get' 
+alias cdm='cd /etc/kubernetes/manifests'
+alias cdk='cd /var/lib/kubelet/pki '
+alias ds='docker ps -a | grep '
+alias dl=' docker logs '
+
+
 function kgi () {
 k get all -o wide 
 k get ep
