@@ -16,8 +16,10 @@ complete -F __start_kubectl kgop
 complete -F __start_kubectl kgod
 complete -F __start_kubectl kgos
 
-
-alias kgp='k get pods -o wide --show-labels'
+alias kgp='k get pods'
+alias kgpwl='k get pods -o wide --show-labels'
+alias kgpw='k get pods -o wide'
+alias kgpl='k get pods'
 alias kgd='k get deployments -o wide'
 alias kgs='k get services -o wide'
 alias kge='k get endpoints'
