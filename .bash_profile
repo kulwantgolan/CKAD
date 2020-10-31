@@ -7,6 +7,16 @@ alias kgop='k get pod -o yaml '
 alias kgod='k get deployment -o yaml '
 alias kgos='k get service -o yaml '
 
+source <(kubectl completion bash)
+complete -F __start_kubectl k
+complete -F __start_kubectl kdo
+complete -F __start_kubectl kdor
+complete -F __start_kubectl kgo
+complete -F __start_kubectl kgop
+complete -F __start_kubectl kgod
+complete -F __start_kubectl kgos
+
+
 alias kgp='k get pods -o wide --show-labels'
 alias kgd='k get deployments -o wide'
 alias kgs='k get services -o wide'
@@ -24,24 +34,15 @@ k get ep
 k get po --show-labels
 }
 
-alias customcol="k get deployment -o custom-columns=DEPLOYMENT:.metadata.name,CONTAINER_IMAGE:.spec.template.spec.containers[].image,READY_REPLICAS:.status.readyReplicas,NAMESPACE:.metadata.namespace --sort-by=.metadata.name | awk '{print $1,$2,$3,$4}'" 
+alias helpjp='kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}'
+alias helpcc="k get deployment -o custom-columns=DEPLOYMENT:.metadata.name,CONTAINER_IMAGE:.spec.template.spec.containers[].image,READY_REPLICAS:.status.readyReplicas,NAMESPACE:.metadata.namespace --sort-by=.metadata.name | awk '{print $1,$2,$3,$4}'" 
+
 function patchpv () {
 kubectl patch pv "${1}" -p '{"spec":{"claimRef": null}}'
 }
 
 alias ju='journalctl -u '
 alias kubeletsvc='ls /etc/systemd/system/kubelet.service.d'
-
-
-source <(kubectl completion bash)
-complete -F __start_kubectl k
-complete -F __start_kubectl kdo
-complete -F __start_kubectl kdor
-complete -F __start_kubectl kgo
-complete -F __start_kubectl kgop
-complete -F __start_kubectl kgod
-complete -F __start_kubectl kgos
-
 
 alias kt='k run --rm -it busybox --image=busybox --restart=Never'
 alias ktw='k run --rm -it busybox --image=busybox --restart=Never -- wget -O- --timeout 2'
