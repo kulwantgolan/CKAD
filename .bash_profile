@@ -49,6 +49,7 @@ alias kubeletsvc='ls /etc/systemd/system/kubelet.service.d'
 
 alias kt='k run --rm -it busybox --image=busybox:1.28 --restart=Never'
 alias ktw='k run --rm -it busybox --image=busybox:1.28 --restart=Never -- wget -O- --timeout 2'
+alias ktn='k run --rm -it busybox --image=busybox:1.28 --restart=Never -- nc -z -v -w 2 '
 alias knt='k describe nodes | grep -i taint  -A3'
 
 alias kaf='kubectl apply -f '
