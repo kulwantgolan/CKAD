@@ -24,6 +24,10 @@ k get ep
 k get po --show-labels
 }
 
+alias customcol="k get deployment -o custom-columns=DEPLOYMENT:.metadata.name,CONTAINER_IMAGE:.spec.template.spec.containers[].image,READY_REPLICAS:.status.readyReplicas,NAMESPACE:.metadata.namespace --sort-by=.metadata.name | awk '{print $1,$2,$3,$4}'" 
+function patchpv () {
+kubectl patch pv "${1}" -p '{"spec":{"claimRef": null}}'
+}
 
 alias ju='journalctl -u '
 alias kubeletsvc='ls /etc/systemd/system/kubelet.service.d'
